@@ -1,4 +1,4 @@
-# Gestión de Horas V3
+# Gestión de Horas V4
 
 Una aplicación web sencilla para el control horario personal, seguimiento de proyectos y gestión de horas extra según reglas específicas.
 
@@ -49,7 +49,7 @@ Esta aplicación permite llevar un registro detallado de las horas trabajadas en
 ### Vía GitHub Pages (Si está desplegado)
 
 Simplemente accede a la URL proporcionada:
-
+https://jona498.github.io/control-de-horas
 
 ## Funcionamiento del Almacenamiento
 
