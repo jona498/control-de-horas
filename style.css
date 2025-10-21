@@ -444,6 +444,32 @@ body {
 
 /* Aplicar estos estilos cuando la pantalla sea de 768px de ancho o menos */
 @media (max-width: 768px) {
+    
+
+    /* Permitir que la barra de navegación envuelva los botones */
+    .main-nav {
+        flex-wrap: wrap; /* Permite que los botones pasen a la siguiente línea */
+        justify-content: flex-start; /* Alinea los botones al inicio */
+        padding: 5px 10px; /* Menos padding vertical/horizontal */
+    }
+
+    /* Ajustar botones de navegación */
+    .nav-btn {
+        padding: 10px 15px; /* Reducir padding */
+        font-size: 0.85rem; /* Fuente un poco más pequeña */
+        flex-grow: 1; /* Permite que ocupen espacio disponible */
+        text-align: center; /* Centrar texto */
+    }
+
+    /* Quitar el margen automático del botón de tema en móvil */
+    .nav-btn#theme-toggle-btn {
+        margin-left: 0; /* Elimina el margen que lo empuja */
+        /* Opcional: darle un ancho específico si se ve raro */
+        /* width: auto; */ 
+        /* flex-grow: 0; */ /* Evitar que crezca si no quieres */
+    }
+
+  
 
     /* Quita el Flexbox y haz que los hijos se apilen como bloques */
     .app-container {
