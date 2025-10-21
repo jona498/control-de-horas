@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Control Horario</title>
+    <link rel="stylesheet" href="style.css">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <nav class="main-nav">
+        <button id="nav-calendar-btn" class="nav-btn active">Calendario</button>
+        <button id="nav-summary-btn" class="nav-btn">Resumen Mensual</button>
+        <button id="nav-settings-btn" class="nav-btn">Configuración</button>
+    </nav>
+
+    <div class="view-container">
+
+        <div id="calendar-view" class="view active">
+            <div class="app-container">
+                <div class="calendario-container">
+                    <div class="calendario-header">
+                        <button id="prev-month-btn">&lt;</button>
+                        <h2 id="month-year-display">Octubre 2025</h2>
+                        <button id="next-month-btn">&gt;</button>
+                    </div>
+                    <div class="calendario-weekdays">
+                        <div>Lunes</div> <div>Martes</div> <div>Miércoles</div> <div>Jueves</div> <div>Viernes</div> <div>Sábado</div> <div>Domingo</div>
+                    </div>
+                    <div class="calendario-grid" id="calendar-grid"></div>
+                </div>
+                <div class="sidebar-container">
+                    <h3 id="sidebar-date-display">Selecciona un día</h3>
+                    <div class="day-actions" style="display: none;">
+                        <button id="set-workday-btn" class="day-action-btn workday">Laborable</button>
+                        <button id="set-vacation-btn" class="day-action-btn vacation">Vacaciones</button>
+                        <button id="set-holiday-btn" class="day-action-btn holiday">Festivo</button>
+                    </div>
+                    <div classs="task-status-container">
+                        <div class="task-status">
+                            <span>Horas Totales:</span>
+                            <span id="total-hours-display">0.0h / 8.0h</span>
+                        </div>
+                        <div class="task-status remaining">
+                            <span>Horas Restantes:</span>
+                            <span id="remaining-hours-display">8.0h</span>
+                        </div>
+                        <div class="task-status unimputed">
+                            <span>Horas NO Imputadas:</span>
+                            <span id="unimputed-hours-display">0.0h</span>
+                        </div>
+                    </div>
+                    <div id="task-list"></div>
+                    <div class="add-task-form" style="display: none;">
+                        <h4>Añadir Nueva Tarea</h4>
+                        <label for="task-project-input">Proyecto</label>
+                        <input type="text" id="task-project-input" list="project-suggestions" placeholder="ej: Clun, Mitel, Amtega...">
+                        <datalist id="project-suggestions"></datalist>
+                        <label for="task-jp-input">Jefe de Proyecto (JP)</label>
+                        <input type="text" id="task-jp-input" list="jp-suggestions" placeholder="ej: Nano, Loli, Sara...">
+                        <datalist id="jp-suggestions"></datalist>
+                        <label for="task-name-input">Descripción de la Tarea</label>
+                        <input type="text" id="task-name-input" placeholder="Descripción (opcional)">
+                        <label for="task-hours-input">Horas</label>
+                        <input type="number" id="task-hours-input" placeholder="Horas" step="0.5">
+                        <button id="add-task-btn">Añadir Tarea</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="summary-view" class="view">
+            <h2 id="summary-title">Resumen por Fechas</h2>
+
+            <div class="summary-controls">
+                <div class="date-range-picker">
+                    <label for="summary-start-date">Desde:</label>
+                    <input type="date" id="summary-start-date">
+                    <label for="summary-end-date">Hasta:</label>
+                    <input type="date" id="summary-end-date">
+                    <button id="generate-summary-btn" class="save-btn">Generar Resumen</button>
+                </div>
+                <button id="download-csv-btn" class="download-btn">Descargar CSV del Rango</button>
+            </div>
+            
+            <div class="charts-container">
+                <div class="chart-wrapper">
+                    <h3>Horas por Proyecto</h3>
+                    <canvas id="project-pie-chart"></canvas>
+                </div>
+                <div class="chart-wrapper">
+                    <h3>Horas por JP</h3>
+                    <canvas id="jp-pie-chart"></canvas>
+                </div>
+            </div>
+
+            <h3>Desglose por Proyecto</h3>
+            <div id="project-summary-container">
+                </div>
+
+            <h3>Total por Jefe de Proyecto (JP)</h3>
+            <div id="jp-summary-container">
+                </div>
+        </div>
+
+        <div id="settings-view" class="view">
+            <h2>Configuración</h2>
+            <div class="settings-section">
+                <h3>Jornada Laboral</h3>
+                <p>Define el número de horas de tu jornada laboral estándar.</p>
+                <label for="default-hours-input">Horas de jornada por defecto:</label>
+                <input type="number" id="default-hours-input" step="0.1" min="1">
+                <button id="save-settings-btn" class="save-btn">Guardar Configuración</button>
+            </div>
+            <div class="settings-section">
+                <h3>Copia de Seguridad</h3>
+                <p>Guarda todos tus datos (tareas, festivos, configuración) en un archivo JSON.</p>
+                <div class="backup-controls">
+                    <button id="export-backup-btn" class="download-btn">Exportar Backup</button>
+                    <button id="import-backup-btn" class="import-btn">Importar Backup</button>
+                    <input type="file" id="import-file-input" accept=".json" style="display: none;">
+                </div>
+            </div>
+            <div class="settings-section">
+                <h3>Administrar Sugerencias</h3>
+                <p>Limpia o renombra Proyectos y JPs que hayas introducido. "Renombrar" actualizará todas las tareas existentes.</p>
+                <h4>Proyectos</h4>
+                <div id="project-suggestions-manager"></div>
+                <h4>Jefes de Proyecto (JPs)</h4>
+                <div id="jp-suggestions-manager"></div>
+            </div>
+        </div>
+
+    </div>
+    <script src="app.js"></script>
+</body>
+</html>
