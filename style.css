@@ -451,6 +451,7 @@ body {
   /* --- ¡NUEVO! Estilos Responsivos para Móviles --- */
   @media (max-width: 768px) {
       /* ... todas las reglas responsivas ... */
-  } /* <-- El código @media tiene su propia llave de cierre */
+  } 
 
   /* --- FIN DEL ARCHIVO --- */
+
