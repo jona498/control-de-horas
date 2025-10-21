@@ -448,10 +448,81 @@ body {
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   }
 
-  /* --- ¡NUEVO! Estilos Responsivos para Móviles --- */
-  @media (max-width: 768px) {
-      /* ... todas las reglas responsivas ... */
-  } 
+/* --- ¡NUEVO! Estilos Responsivos para Móviles (v2) --- */
 
+/* Aplicar estos estilos cuando la pantalla sea de 768px de ancho o menos */
+@media (max-width: 768px) {
+
+    /* Quita el Flexbox y haz que los hijos se apilen como bloques */
+    .app-container {
+        display: block; /* Cambiado de flex-direction: column */
+        /* overflow: hidden; */ /* Descomenta si sigue habiendo problemas */
+    }
+
+    /* Asegurar que ambas secciones ocupen el 100% y tengan padding */
+    .calendario-container,
+    .sidebar-container {
+        width: 100%; /* Ocupa todo el ancho disponible */
+        box-sizing: border-box; /* Asegura que padding no aumente el tamaño total */
+        border-right: none; /* Quita la línea divisoria en móvil */
+        padding: 15px; /* Padding reducido */
+    }
+
+    /* Ajustar cabecera calendario y botones nav si es necesario */
+    .calendario-header h2 {
+        font-size: 1.2rem; /* Más pequeño */
+    }
+    .nav-btn {
+        padding: 12px 10px; /* Menos padding horizontal */
+        font-size: 0.9rem;
+    }
+    
+    /* Ajustes para la rejilla del calendario */
+    .calendario-weekdays div {
+        font-size: 0.7rem; /* Nombres de días más pequeños */
+    }
+    .dia-celda {
+        height: auto; /* Altura automática */
+        min-height: 70px; /* Pero con un mínimo */
+        padding: 5px;
+        font-size: 0.8rem; /* Texto general más pequeño */
+    }
+    .dia-numero {
+        font-size: 0.9rem;
+    }
+    .dia-resumen {
+        font-size: 0.65rem;
+        margin-top: 5px; /* Un poco de espacio extra */
+    }
+
+    /* Ajustes sidebar */
+    .sidebar-container h3 {
+        font-size: 1.1rem; /* Título sidebar más pequeño */
+    }
+    .task-status span {
+        font-size: 0.9rem;
+    }
+
+    /* Hacer que los gráficos de resumen se apilen (sin cambios) */
+    .charts-container {
+        flex-direction: column;
+    }
+    .chart-wrapper {
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Ajustes menores para tablas (sin cambios) */
+    .suggestion-manager-table,
+    .overtime-list-table {
+        font-size: 0.9rem;
+    }
+    .suggestion-manager-table td, .suggestion-manager-table th,
+    .overtime-list-table td, .overtime-list-table th {
+        padding: 8px 5px;
+    }
+
+} 
   /* --- FIN DEL ARCHIVO --- */
+
 
