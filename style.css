@@ -439,15 +439,7 @@ body {
     margin-top: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-
-}/* Estilos anteriores */
-  #easter-egg-image {
-      max-width: 100%;
-      margin-top: 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  }
-
+}
 /* --- ¡NUEVO! Estilos Responsivos para Móviles (v2) --- */
 
 /* Aplicar estos estilos cuando la pantalla sea de 768px de ancho o menos */
@@ -522,7 +514,4 @@ body {
         padding: 8px 5px;
     }
 
-} 
-  /* --- FIN DEL ARCHIVO --- */
-
-
+} /* Fin de @media */
